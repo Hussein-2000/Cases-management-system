@@ -1,0 +1,17 @@
+<% if (message && messageType) { %>
+    <div id="alertMessage" class="mb-4">
+      <div class="relative flex items-center justify-between px-4 py-3 text-sm border rounded-md <%= messageType === 'success' ? 'text-green-700 border-green-200 bg-green-50' : 'text-red-700 border-red-200 bg-red-50' %>">
+        <span class="font-medium"><%= message %></span>
+        <button 
+          onclick="this.parentElement.style.display='none'" 
+          class="ml-4 hover:opacity-80"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+          <span class="sr-only">Close</span>
+        </button>
+      </div>
+    </div>
+  <% } %>
