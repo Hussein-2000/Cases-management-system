@@ -11,11 +11,7 @@ const Station = mongoose.Schema({
         required: true,
         unique: true
     },
-    "created_at": {
-        type: String,
-        required: true,
-        default: Date.now()
-    }
-});
+  
+},{Timestamp: true});
 
 module.exports = mongoose.model('Station', Station);

@@ -23,11 +23,12 @@ function RedirectIfAuthenticated(req, res, next) {
 }
 
 router.get('/loginUser', RedirectIfAuthenticated, (req, res) => {
-    res.render('Login' , {title: ' - Login Page'});
+    res.render('login' , {title: ' - Login Page'});
 })
 
 
 router.get('/', IsAuthenticated, (req, res) => {
+    console.log("Hi in the Home")
     res.render('Home', {title: ' - Home page'});
 })
 
@@ -95,11 +96,16 @@ router.get('/', IsAuthenticated, (req, res) => {
 router.post('/findUser', async (req, res) => {
     try {
         const { email, password } = req.body;
+        console.log("USER: " + req.body)
 
         const user = await userModel.findOne({ userName: email });
+        
+
 
         if (!user) {
             req.flash('error', 'No user found with this email');
+        console.log("USER: not found")
+
             return res.redirect('/loginUser');
         }
 
@@ -111,6 +117,7 @@ router.post('/findUser', async (req, res) => {
         // Successful login
         req.session.user = user;
         req.flash('success', 'Successfully logged in');
+        console.log("REDIRECT")
         return res.redirect('/');
 
     } catch (error) {
@@ -133,5 +140,6 @@ router.post('/LogOut', (req, res) => {
         res.redirect('/loginUser'); // Redirect to home or login page after logout
       });
 });
+
 
 module.exports = router;

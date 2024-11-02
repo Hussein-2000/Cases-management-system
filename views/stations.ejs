@@ -1,2 +1,144 @@
-<%- include('layout/sideBar') %>
+<%- include('Dashboard') %>
+<link rel="stylesheet" href="/vendors/datatables.net-bs5/dataTables.bootstrap5.css">
 
+<div class="page-content">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    + Add Station
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Station</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/AddStations" method="post">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Name</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="StationName">
+              <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">District</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" name="District">
+            </div>
+
+            <div style="text-align: end;">
+              <button type="submit" class="btn text-dark" style="border: none; background-color: rgb(228, 228, 228);">Cancel</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
+
+            </div>
+          </form>
+        </div>
+        <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="row px-1 mt-4">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Station lists</h6>
+  
+          <div class="table-responsive">
+            <table id="dataTableExample" class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Distric</th>
+                  <th>Status</th>
+  
+                </tr>
+              </thead>
+              <tbody>
+  
+                <% Stations.forEach(station => { %>
+                <tr>
+                  <td><%= station.StationName %></td>
+                  <td><%= station.District %></td>
+                  <td>
+                    
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="edit(`<%= station._id  %>`, `<%= station.StationName  %>`, `<%= station.District  %>`)" style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i class="fa-regular fa-pen-to-square"></i></button>&nbsp;
+                      <a href="/DeleteStation/<%= station._id  %>" class="bg-danger text-light" style="border: none;border-radius: 4px; font-size: 15px;padding: 7px 10px;">
+                      <i class="fa-regular fa-trash-can"></i></a>
+                  </td>
+                </tr>
+                <% }) %>
+  
+  
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Button trigger modal -->
+  <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button> -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Station</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/EditStation" method="post">
+            <input type="hidden" name="id" id="_id">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Name</label>
+              <input type="text" class="form-control" id="Name" name="StationName" aria-describedby="emailHelp">
+              <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">District</label>
+              <input type="text" value="data-name" class="form-control" id="Distric" name="District">
+            </div>
+  
+            <div style="text-align: end;">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button  type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<%- include('footer') %>
+<!-- Plugin js for this page -->
+<script>
+  function edit(_id,name,Distric){  
+      console.log("1ID", _id  ) 
+      console.log("1NAME", name  ) 
+      console.log("1DIS", Distric ) 
+      $('#Name').val(name)
+      $('#Distric').val(Distric)
+      $('#_id').val(_id)
+      $('#editModal').modal('show');
+  }
+  
+</script>
+<script src="/vendors/datatables.net/jquery.dataTables.js"></script>
+<script src="/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
+<!-- End plugin js for this page -->
+<script src="/js/data-table.js"></script>

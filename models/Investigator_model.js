@@ -13,6 +13,10 @@ const Investigator = mongoose.Schema({
         type: String,
         required: true,
     },
+    "station_Id":{
+        type:mongoose.Types.ObjectId,
+        ref:"Station"
+    },
     "Created_at": {
         type: String,
         required: true,

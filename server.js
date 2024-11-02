@@ -13,7 +13,8 @@ const PORT = process.env.PORT || 4000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set('views', './views'); 
+app.use(express.static(path.join(__dirname, 'assets'))); // Static assets
 
 // Session configuration
 app.use(session({
@@ -62,8 +63,7 @@ app.use('', Userroute); //ROUTER PAGE
 app.use('', stationroute); //stations PAGE
 
 
-// Serve static files
-app.use(express.static(path.join(__dirname, 'assets')));
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
