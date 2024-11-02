@@ -36,7 +36,7 @@ router.post('/AddStations', async (req, res)=>{
           }
 
      } catch (error) {
-          res.send("ERROR ",error.message)
+          res.status(400).send(error.message);
      }
 });
 
@@ -90,6 +90,6 @@ router.post('/EditStation', async (req, res) => {
 
  });
  
-
+//TODO:
 
 module.exports = router;
