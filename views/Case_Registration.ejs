@@ -17,151 +17,131 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/officer">
+                        <form action="/AddCases" method="post">
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">plaintiff Name</label>
                                 <input type="text" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp">
+                                    aria-describedby="emailHelp" name="Plaintiff">
                                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">plaintiff National ID</label>
                                 <input type="text" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp">
+                                    aria-describedby="emailHelp" name="PlaintiffNationalId">
                                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Defendant</label>
+                                <label for="exampleInputEmail1" class="form-label">Defendant Name</label>
                                 <input type="text" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp">
+                                    aria-describedby="emailHelp" name="Defendant">
                                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Defendant National_ID</label>
+                                <label for="exampleInputEmail1" class="form-label">Defendant National ID</label>
                                 <input type="text" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp">
+                                    aria-describedby="emailHelp" name="DefendantNationalId">
                                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                             </div>
                             <div class="input-group flex-nowrap my-2">
                                 <span class="input-group-text" id="addon-wrapping">Case Type</span>
             
-                                <select name="Class_id" class="form-control">
-                                    <option disabled>Select Station</option>
+                                <select name="CaseTypeId" class="form-control">
+                                    <option disabled>Select Case Type</option>
             
-                                    <option value="">Dharkeynlee</option>
+                                    <% caseTypes.forEach(caseType => { %>
+                                        <option value="<%= caseType._id %>"><%= caseType.casseType %></option>
+                                    <% }) %>
             
                                 </select>
                             </div>
+                            <div class="input-group flex-nowrap  mt-3 ">
+                                <span class="input-group-text" id="addon-wrapping">Station</span>
+            
+                                <select name="StationId" class="form-control">
+                                    <option disabled>Select Station</option>
+                                    <% stations.forEach(station => { %>
+                                        <option value="<%= station._id %>"><%= station.StationName %></option>
+                                    <% }) %>
+                                    
+
+            
+                                </select>
+                            </div>  
+                            <div class="input-group flex-nowrap  mt-3 ">
+                                <span class="input-group-text" id="addon-wrapping">Investigator</span>
+            
+                                <select name="StationId" class="form-control">
+                                    <option disabled>Select Station</option>
+                                    <% investigator.forEach(station => { %>
+                                        <option value="<%= station._id %>"><%= station.FullName %></option>
+                                    <% }) %>
+                                    
+
+            
+                                </select>
+                            </div>  
+                            <!-- <label for="tArea" class="form-label">Issue</label> -->
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1">
+                        <label for="tArea" class="form-label"></label>
+                        <textarea name="Issue" id="tArea" style="width: 100%; padding: 10PX 15PX; " placeholder="Enter Issue" rows="6"></textarea>
                     </div>
-
                   
-
-                  
+                    
                     <div style="text-align: end;">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-
+                        <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
                     </form>
                 </div>
-                <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div> -->
             </div>
         </div>
     </div>
-    </div>
 
-
-
-
-
-    <div class="row px-3">
+    <div class="row px-1 mt-4">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">officer lists</h6>
+                    <h6 class="card-title">CASES LIST</h6>
 
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
-                                    <th>Full Name</th>
-                                    <th>sex</th>
-                                    <th>Phone</th>
-                                    <th>Status</th>
+                                    <th>Case id</th>
+                                    <th>Plaintiff</th>
+                                    <th>Plaintiff National ID</th>
+                                    <th>Defendant</th>
+                                    <th>Defendant National ID</th>
+                                    <th>Issue</th>
+                                    <th>Case type </th>
+                                    <th>Station</th>
+                                    <th>Investigator</th>
+                                    <td>Status</td>
+                                    <td>Action</td>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>+252 613216050</td>
-                                    <td>
-                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i
-                                                class="fa-regular fa-pen-to-square"></i></button>&nbsp;
-                                        <button type="submit" class="bg-danger text-light"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;">
-                                            <i class="fa-regular fa-trash-can"></i></button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Garrett Winters</td>
-                                    <td>Accountant</td>
-                                    <td>+252 613216050</td>
-
-                                    <td>
-                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i
-                                                class="fa-regular fa-pen-to-square"></i></button>&nbsp;
-                                        <button type="submit" class="bg-danger text-light"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i
-                                                class="fa-regular fa-trash-can"></i></i></button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Ashton Cox</td>
-                                    <td>Junior Technical Author</td>
-                                    <td>+252 613216050</td>
-
-                                    <td>
-                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i
-                                                class="fa-regular fa-pen-to-square"></i></button>&nbsp;
-                                        <button type="submit" class="bg-danger text-light"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i
-                                                class="fa-regular fa-trash-can"></i></button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Cedric Kelly</td>
-                                    <td>Senior Javascript Developer</td>
-                                    <td>+252 613216050</td>
-
-                                    <td>
-                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i
-                                                class="fa-regular fa-pen-to-square"></i></button>&nbsp;
-                                        <button type="submit" class="bg-danger text-light"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i
-                                                class="fa-regular fa-trash-can"></i></button>
-                                    </td>
-
-                                </tr>
-
+                                <% cases.forEach(c => { %>
+                                    <tr>                
+                                      <td><%= c.Case_id %></td>
+                                      <td><%= c.Plaintiff %></td>
+                                      <td><%= c.PlaintiffNationalId %></td>
+                                      <td><%= c.Defendant %></td>
+                                      <td><%= c.DefendantNationalId %></td>
+                                      <td><%= c.Issue %></td>
+                                      <td><%= c.CaseTypeId.casseType %></td>
+                                      <td><%= c.StationId.StationName %></td>
+                                      <td><%= c.Status %></td>
+                                     
+                                      <td>
+                                        <button type="button" onclick="edit(`<%= c._id %>`, `<%= c.FullName %>`, `<%= c.Sex %>`, `<%= c.Phone %>`)" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i class="fa-regular fa-pen-to-square"></i></button>&nbsp;
+                                        <a href="/DeleteCases/<%= c._id  %>" class="bg-danger text-light" style="border: none;border-radius: 4px; font-size: 15px;padding: 7px 10px;">
+                                          <i class="fa-regular fa-trash-can"></i>
+                                      </td>
+                      
+                                    </tr>
+                                    <% }) %>
                             </tbody>
                         </table>
                     </div>
@@ -228,3 +208,9 @@
         <script src="/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
         <!-- End plugin js for this page -->
         <script src="/js/data-table.js"></script>
+    </div>
+
+
+
+
+

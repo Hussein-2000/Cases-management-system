@@ -9,6 +9,8 @@ const Investigator = require('./router/Investigator.js');
 const procecutors = require('./router/Procecutors.js');
 const Judge = require('./router/Judge.js');
 const Lawyer = require('./router/Lawyer.js');
+const Cases = require('./router/cases.js');
+const CasesTypes = require('./router/caseType.js');
 const path = require('path');
 
 const app = express();
@@ -71,6 +73,8 @@ app.use('', Investigator); //Investigator PAGE
 app.use('', procecutors); //procecutors PAGE
 app.use('', Lawyer); //procecutors PAGE
 app.use('', Judge); //Judges PAGE
+app.use('', Cases); //Cases PAGE
+app.use('', CasesTypes); //Cases PAGE
 
 
 

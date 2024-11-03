@@ -188,7 +188,7 @@ function edit(_id, FullName, Sex, Phone, station_Id) {
     }
 
     //Station not found buu leeyahy hadii la daabacana waa soo daabacaa
-    // $('select[name="Class_id"]').val(station_Id);
+    $('select[name="Class_id"]').val(station_Id).change();
     $('#editModal').modal('show');
 
 }

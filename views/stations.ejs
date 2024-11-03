@@ -19,16 +19,16 @@
           <form action="/AddStations" method="post">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Name</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="StationName">
+              <input required type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="StationName">
               <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">District</label>
-              <input type="text" class="form-control" id="exampleInputPassword1" name="District">
+              <input required type="text" class="form-control" id="exampleInputPassword1" name="District">
             </div>
 
             <div style="text-align: end;">
-              <button type="submit" class="btn text-dark" style="border: none; background-color: rgb(228, 228, 228);">Cancel</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
               <button type="submit" class="btn btn-primary">Submit</button>
 
             </div>
@@ -96,15 +96,15 @@
         </div>
         <div class="modal-body">
           <form action="/EditStation" method="post">
-            <input type="hidden" name="id" id="_id">
+            <input required type="hidden" name="id" id="_id">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Name</label>
-              <input type="text" class="form-control" id="Name" name="StationName" aria-describedby="emailHelp">
+              <input required type="text" class="form-control" id="Name" name="StationName" aria-describedby="emailHelp">
               <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">District</label>
-              <input type="text" value="data-name" class="form-control" id="Distric" name="District">
+              <input required type="text" value="data-name" class="form-control" id="Distric" name="District">
             </div>
   
             <div style="text-align: end;">

@@ -19,24 +19,24 @@
           <form action="/AddOfficer" method="post">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="FullName">
+              <input required type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="FullName">
               <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
             </div>
             <label class="form-label" font-weight: bold; ">Sex</label>
               <div style=" border: 1px solid rgb(224, 224, 224);padding: 6px 9px; border-radius: 8px;">
 
               <div class="form-check form-check-inline mx-5 ">
-                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="Male" name="Sex">
+                <input required class="form-check-input" type="radio" id="inlineCheckbox1" value="Male" name="Sex">
                 <label class="form-check-label" for="inlineCheckbox1">Male</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Female" name="Sex">
+                <input required class="form-check-input" type="radio" id="inlineCheckbox2" value="Female" name="Sex">
                 <label class="form-check-label" for="inlineCheckbox2">Female</label>
               </div>
         </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Phone</label>
-          <input type="text" class="form-control" id="exampleInputPassword1" name="Phone">
+          <input required type="text" class="form-control" id="exampleInputPassword1" name="Phone">
         </div>
 
         <div class="input-group flex-nowrap my-2">
@@ -54,7 +54,7 @@
 
 
         <div style="text-align: end;">
-          <button type="button" class="btn text-dark" style="border: none; background-color: rgb(228, 228, 228);">Cancel</button>
+          <button type="button" class="btn btn-secondary"data-bs-dismiss="modal">Cancel</button>
           <button type="submit" class="btn btn-primary">Submit</button>
 
         </div>
@@ -92,11 +92,9 @@
                 <td><%= officer.FullName %></td>
                 <td><%= officer.Sex %></td>
                 <td><%= officer.Phone %></td>
-                <%= console.log("object", officer.station_Id); %>
-                <%= console.log("DiS", officer.station_Id.District); %>
                 <td><%= officer.station_Id ? officer.station_Id.District : 'No station assigned' %></td>
                 <td>
-                  <button type="button" onclick="edit(`<%= officer._id %>`, `<%= officer.FullName %>`, `<%= officer.Sex %>`, `<%= officer.Phone %>`, `<%= officer.station_Id.District %>` )" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i class="fa-regular fa-pen-to-square"></i>HI</button>&nbsp;
+                  <button type="button" onclick="edit(`<%= officer._id %>`, `<%= officer.FullName %>`, `<%= officer.Sex %>`, `<%= officer.Phone %>`, `<%= officer.station_Id._id %>` )" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i class="fa-regular fa-pen-to-square"></i></button>&nbsp;
                   <a href="/DeleteOfficer/<%= officer._id  %>" class="bg-danger text-light" style="border: none;border-radius: 4px; font-size: 15px;padding: 7px 10px;">
                     <i class="fa-regular fa-trash-can"></i></button>
                 </td>
@@ -125,32 +123,32 @@
       </div>
       <div class="modal-body">
         <form action="/EditOfficer" method="post">
-          <input type="hidden" id="_id" name="id">
+          <input required type="hidden" id="_id" name="id">
           <div class="mb-3">
               <label for="FullName" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="FullName" name="FullName">
+              <input required type="text" class="form-control" id="FullName" name="FullName">
           </div>
       
           <label class="form-label">Sex</label>
           <div style="border: 1px solid rgb(224, 224, 224); padding: 6px 9px; border-radius: 8px;">
               <div class="form-check form-check-inline mx-5">
-                  <input class="form-check-input" type="radio" id="Sex" value="Male" name="Sex">
+                  <input required class="form-check-input" type="radio" id="Sex" value="Male" name="Sex">
                   <label class="form-check-label" for="inlineCheckbox1">Male</label>
               </div>
               <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" id="Sex" value="Female" name="Sex">
+                  <input required class="form-check-input" type="radio" id="Sex" value="Female" name="Sex">
                   <label class="form-check-label" for="inlineCheckbox2">Female</label>
               </div>
           </div>
       
           <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Phone</label>
-              <input type="text" class="form-control" id="Phone" name="Phone">
+              <input required type="text" class="form-control" id="Phone" name="Phone">
           </div>
       
           <div class="input-group flex-nowrap my-2">
             <span class="input-group-text" id="addon-wrapping">Station</span>
-            <select name="Class_id" class="form-control">
+            <select name="Class_id" class="form-control" id="stations_id">
                 <option value="" id="Dis">Select Station</option>
                 <% stations.forEach(station => { %>
                     <option value="<%= station._id %>"><%= station.StationName %></option>
@@ -190,7 +188,7 @@ function edit(_id, FullName, Sex, Phone, station_Id) {
     }
 
     // Station not found buu leeyahy hadii la daabacana waa soo daabacaa
-    $('select[name="Dis"]').val(station_Id);
+    $('#stations_id').val(station_Id).change();
     $('#editModal').modal('show');
 
 }
