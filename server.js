@@ -7,6 +7,8 @@ const stationroute = require('./router/stationsrouter.js');
 const officerroute = require('./router/officerrouter.js');
 const Investigator = require('./router/Investigator.js');
 const procecutors = require('./router/Procecutors.js');
+const Judge = require('./router/Judge.js');
+const Lawyer = require('./router/Lawyer.js');
 const path = require('path');
 
 const app = express();
@@ -67,6 +69,8 @@ app.use('', stationroute); //stations PAGE
 app.use('', officerroute); //Officor PAGE
 app.use('', Investigator); //Investigator PAGE
 app.use('', procecutors); //procecutors PAGE
+app.use('', Lawyer); //procecutors PAGE
+app.use('', Judge); //Judges PAGE
 
 
 

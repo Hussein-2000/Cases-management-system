@@ -1,216 +1,187 @@
 <%- include('Dashboard') %>
-    <link rel="stylesheet" href="/vendors/datatables.net-bs5/dataTables.bootstrap5.css">
+<link rel="stylesheet" href="/vendors/datatables.net-bs5/dataTables.bootstrap5.css">
 
-    <div class="page-content">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-           + Add Judges
-        </button>
+<div class="page-content">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Add Judge
+  </button>
 
-        <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Judges Registeration</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/officer">
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp">
-                                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
-                            </div>
-                            <label class="form-label" font-weight: bold; ">Sex</label>
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Officer</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/AddJudge" method="post">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="FullName">
+              <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+            </div>
+            <label class="form-label" font-weight: bold; ">Sex</label>
               <div style=" border: 1px solid rgb(224, 224, 224);padding: 6px 9px; border-radius: 8px;">
 
-                                <div class="form-check form-check-inline mx-5 ">
-                                    <input class="form-check-input" type="radio" id="inlineCheckbox1" value="Male"
-                                        name="Sex">
-                                    <label class="form-check-label" for="inlineCheckbox1">Male</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Female"
-                                        name="Sex">
-                                    <label class="form-check-label" for="inlineCheckbox2">Female</label>
-                                </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1">
-                    </div>
+              <div class="form-check form-check-inline mx-5 ">
+                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="Male" name="Sex">
+                <label class="form-check-label" for="inlineCheckbox1">Male</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Female" name="Sex">
+                <label class="form-check-label" for="inlineCheckbox2">Female</label>
+              </div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Phone</label>
+          <input type="text" class="form-control" id="exampleInputPassword1" name="Phone">
+        </div>
 
-                  
+      </div>
 
-                  
-                    <div style="text-align: end;">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
 
-                    </div>
-                    </form>
-                </div>
-                <!-- <div class="modal-footer">
+
+        <div style="text-align: end;">
+          <button type="button" class="btn text-dark" style="border: none; background-color: rgb(228, 228, 228);">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+
+        </div>
+        </form>
+      </div>
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Understood</button>
       </div> -->
-            </div>
+    </div>
+  </div>
+
+  <div class="row px-1 mt-4">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">officer lists</h6>
+  
+          <div class="table-responsive">
+            <table id="dataTableExample" class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Sex</th>
+                  <th>Phone</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% Lawyers.forEach(procecutor => { %>
+                <tr>                
+                  <td><%= procecutor.FullName %></td>
+                  <td><%= procecutor.Sex %></td>
+                  <td><%= procecutor.Phone %></td>
+  
+                  <td>
+                    <button type="button" onclick="edit(`<%= procecutor._id %>`, `<%= procecutor.FullName %>`, `<%= procecutor.Sex %>`, `<%= procecutor.Phone %>` )" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i class="fa-regular fa-pen-to-square"></i></button>&nbsp;
+                    <a href="/DeleteJudge/<%= procecutor._id  %>" class="bg-danger text-light" style="border: none;border-radius: 4px; font-size: 15px;padding: 7px 10px;">
+                      <i class="fa-regular fa-trash-can"></i></button>
+                  </td>
+  
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
     </div>
-    </div>
-
-
-
-
-
-    <div class="row px-3">
-        <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="card-title">officer lists</h6>
-
-                    <div class="table-responsive">
-                        <table id="dataTableExample" class="table">
-                            <thead>
-                                <tr>
-                                    <th>Full Name</th>
-                                    <th>sex</th>
-                                    <th>Phone</th>
-                                    <th>Status</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>+252 613216050</td>
-                                    <td>
-                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i
-                                                class="fa-regular fa-pen-to-square"></i></button>&nbsp;
-                                        <button type="submit" class="bg-danger text-light"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;">
-                                            <i class="fa-regular fa-trash-can"></i></button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Garrett Winters</td>
-                                    <td>Accountant</td>
-                                    <td>+252 613216050</td>
-
-                                    <td>
-                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i
-                                                class="fa-regular fa-pen-to-square"></i></button>&nbsp;
-                                        <button type="submit" class="bg-danger text-light"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i
-                                                class="fa-regular fa-trash-can"></i></i></button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Ashton Cox</td>
-                                    <td>Junior Technical Author</td>
-                                    <td>+252 613216050</td>
-
-                                    <td>
-                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i
-                                                class="fa-regular fa-pen-to-square"></i></button>&nbsp;
-                                        <button type="submit" class="bg-danger text-light"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i
-                                                class="fa-regular fa-trash-can"></i></button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Cedric Kelly</td>
-                                    <td>Senior Javascript Developer</td>
-                                    <td>+252 613216050</td>
-
-                                    <td>
-                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i
-                                                class="fa-regular fa-pen-to-square"></i></button>&nbsp;
-                                        <button type="submit" class="bg-danger text-light"
-                                            style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i
-                                                class="fa-regular fa-trash-can"></i></button>
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
+  </div>
+  <!-- Button trigger modal -->
+  <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button> -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/EditJudge" method="post">
+            <input type="hidden" id="_id" name="id">
+            <div class="mb-3">
+                <label for="FullName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="FullName" name="FullName">
+            </div>
+        
+            <label class="form-label">Sex</label>
+            <div style="border: 1px solid rgb(224, 224, 224); padding: 6px 9px; border-radius: 8px;">
+                <div class="form-check form-check-inline mx-5">
+                    <input class="form-check-input" type="radio" id="Sex" value="Male" name="Sex">
+                    <label class="form-check-label" for="inlineCheckbox1">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="Sex" value="Female" name="Sex">
+                    <label class="form-check-label" for="inlineCheckbox2">Female</label>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Button trigger modal -->
-    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button> -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="/officer">
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp">
-                            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
-                        </div>
-                        <label class="form-label" font-weight: bold; ">Sex</label>
-          <div style=" border: 1px solid rgb(224, 224, 224);padding: 6px 9px; border-radius: 8px;">
-
-                            <div class="form-check form-check-inline mx-5 ">
-                                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="Male"
-                                    name="Sex">
-                                <label class="form-check-label" for="inlineCheckbox1">Male</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Female"
-                                    name="Sex">
-                                <label class="form-check-label" for="inlineCheckbox2">Female</label>
-                            </div>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Phone</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1">
-                </div>
-
-                
-
-              
-                <div style="text-align: end;">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-                </form>
-                </div>
-               
+        
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="Phone" name="Phone">
             </div>
-        </div>
+        
+            <div style="text-align: end;">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+        
+      </div>
+  
     </div>
-    <%- include('footer') %>
-        <!-- Plugin js for this page -->
-        <script src="/vendors/datatables.net/jquery.dataTables.js"></script>
-        <script src="/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
-        <!-- End plugin js for this page -->
-        <script src="/js/data-table.js"></script>
+  </div>
+  </div>
+  <%- include('footer') %>
+  
+  <script>
+  function edit(_id, FullName, Sex, Phone, station_Id) {  
+  
+      console.log("Officer ID:", _id);
+      console.log("Officer Name:", FullName);
+      console.log("Officer sex:", Sex);
+      console.log("Officer ph:", Phone);
+      console.log("Officer Station ID:", station_Id);
+  
+      $('#_id').val(_id);
+      $('#FullName').val(FullName);
+      $('#Phone').val(Phone);
+      if (Sex === "Male"){
+        $('#Sex[value="Male"]').prop('checked', true);
+      }else if (Sex === "Female"){
+        $('#Sex[value="Female"]').prop('checked', true); 
+      }
+  
+      // Station not found buu leeyahy hadii la daabacana waa soo daabacaa
+      $('#editModal').modal('show');
+  
+  }
+  
+    
+  </script>
+  <!-- Plugin js for this page -->
+  <script src="/vendors/datatables.net/jquery.dataTables.js"></script>
+  <script src="/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
+  <!-- End plugin js for this page -->
+  <script src="/js/data-table.js"></script>
+  </div>
+  
+  
+</div>
+
+
+
+
+

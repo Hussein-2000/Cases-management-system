@@ -1,17 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const procecutors = require('../models/Procecutors');
+const judge = require('../models/Judge');
+const Judge = require('../models/Judge');
 // const Station = require('../models/station_model');
 // const IsAuthenticated = require('./Userrouter');
 
 const router = express.Router();
 
 
-router.get('/Procecutors', async (req,res)=>{
+router.get('/Judges', async (req,res)=>{
+    console.log("HI in tge laweller");
      try {
-          const Procecutors = await procecutors.find()
+        
+          const Lawyers = await judge.find()
 
-          res.render('Procecutors', {Procecutors});
+          res.render('Judges', {Lawyers});
 
      } catch (error) {
           console.error("ERROR: ", error);
@@ -19,20 +22,20 @@ router.get('/Procecutors', async (req,res)=>{
      }
 });
 
-router.post('/AddProcecutor', async (req, res)=>{
+router.post('/AddJudge', async (req, res)=>{
 
      try {
-          const NewProcecutor = new procecutors({
+          const NewJudge = new judge({
                FullName : req.body.FullName,
                Sex: req.body.Sex,
                Phone: req.body.Phone,
                station_Id: req.body.station
           });
-          const IsProcecutorSaved = await NewProcecutor.save();
+          const IsJudgeSaved = await NewJudge.save();
 
-          if (IsProcecutorSaved){
+          if (IsJudgeSaved){
                console.log("If")
-               res.redirect('/Procecutors')
+               res.redirect('/Judges')
           }
           else {
                console.log("Procecutor is not saved successfully")
@@ -44,7 +47,7 @@ router.post('/AddProcecutor', async (req, res)=>{
 });
 
 
-router.post('/Editprocecutor', async (req, res) => {
+router.post('/EditJudge', async (req, res) => {
      console.log(req.body)
      const { FullName, Sex, Phone } = req.body;
      const id = req.body.id;
@@ -52,33 +55,32 @@ router.post('/Editprocecutor', async (req, res) => {
      try {
  
          // Find and update the station by _id directly
-         const isUpdated = await procecutors.findByIdAndUpdate(
+         const isUpdated = await judge.findByIdAndUpdate(
              id,
              { FullName, Sex, Phone },
              { new: true } // Returns the updated document
          );
- 
          if (isUpdated) {
-             res.redirect('/Procecutors');
+            res.redirect('/Judges');
          } else {
-             console.log("Station is not Updated successfully");
-             res.status(404).send("No Officer found with this ID");
+             console.log("Lawyer is not Updated successfully");
+             res.status(404).send("No Lawyer found with this ID");
          }
      } catch (error) {
          res.status(500).send("ERROR: " + error.message);
      }
  });
  
- router.get('/Deleteprocecutor/:_id', async (req, res) => {
+ router.get('/DeleteJudge/:_id', async (req, res) => {
      const ID = req.params.id;
      console.log("REQUEST", ID);
      const id = req.params._id;
 
      try {
-          const IsDeleted = await procecutors.findByIdAndDelete(id);
+          const IsDeleted = await judge.findByIdAndDelete(id);
 
           if (IsDeleted) {
-               res.redirect('/Procecutors');
+               res.redirect('/Judges');
           }
           else{
                res.status(404).send("No Officer found with this ID");

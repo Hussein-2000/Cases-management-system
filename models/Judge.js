@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Garsoore = mongoose.Schema({
+const Judge = mongoose.Schema({
     "FullName": {
         type: String,
         required: true,
@@ -19,4 +19,4 @@ const Garsoore = mongoose.Schema({
         default: Date.now()
     }
 }, { timestamps: true });
-module.exports = mongoose.model('Garsoore', Garsoore);
+module.exports = mongoose.model('Judge', Judge);
