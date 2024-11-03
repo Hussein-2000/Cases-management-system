@@ -4,7 +4,7 @@
 <div class="page-content">
   <!-- Button trigger modal -->
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Add Officer
+    Add Procecutors
   </button>
 
   <!-- Modal -->
@@ -16,7 +16,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="/AddOfficer" method="post">
+          <form action="/AddProcecutor" method="post">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Full Name</label>
               <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="FullName">
@@ -39,16 +39,6 @@
           <input type="text" class="form-control" id="exampleInputPassword1" name="Phone">
         </div>
 
-        <div class="input-group flex-nowrap my-2">
-          <span class="input-group-text" id="addon-wrapping">Station</span>
-          <select name="station" class="form-control">
-          <option disabled>Select Station</option>
-
-        <% stations.forEach(station => { %>
-            <option value="<%= station._id %>"><%= station.StationName %></option>
-        <% }) %>
-      </select>
-
       </div>
 
 
@@ -66,142 +56,129 @@
       </div> -->
     </div>
   </div>
-</div>
 
-<div class="row px-3">
-  <div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h6 class="card-title">officer lists</h6>
-
-        <div class="table-responsive">
-          <table id="dataTableExample" class="table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Sex</th>
-                <th>Phone</th>
-                <th>District</th>
-                <th>Action</th>
-
-              </tr>
-            </thead>
-            <tbody>
-              <% officers.forEach(officer => { %>
-              <tr>                
-                <td><%= officer.FullName %></td>
-                <td><%= officer.Sex %></td>
-                <td><%= officer.Phone %></td>
-                <%= console.log("object", officer.station_Id); %>
-                <%= console.log("DiS", officer.station_Id.District); %>
-                <td><%= officer.station_Id ? officer.station_Id.District : 'No station assigned' %></td>
-                <td>
-                  <button type="button" onclick="edit(`<%= officer._id %>`, `<%= officer.FullName %>`, `<%= officer.Sex %>`, `<%= officer.Phone %>`, `<%= officer.station_Id.District %>` )" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i class="fa-regular fa-pen-to-square"></i>HI</button>&nbsp;
-                  <a href="/DeleteOfficer/<%= officer._id  %>" class="bg-danger text-light" style="border: none;border-radius: 4px; font-size: 15px;padding: 7px 10px;">
-                    <i class="fa-regular fa-trash-can"></i></button>
-                </td>
-
-              </tr>
-              <% }) %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button> -->
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="/EditOfficer" method="post">
-          <input type="hidden" id="_id" name="id">
-          <div class="mb-3">
-              <label for="FullName" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="FullName" name="FullName">
-          </div>
-      
-          <label class="form-label">Sex</label>
-          <div style="border: 1px solid rgb(224, 224, 224); padding: 6px 9px; border-radius: 8px;">
-              <div class="form-check form-check-inline mx-5">
-                  <input class="form-check-input" type="radio" id="Sex" value="Male" name="Sex">
-                  <label class="form-check-label" for="inlineCheckbox1">Male</label>
-              </div>
-              <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" id="Sex" value="Female" name="Sex">
-                  <label class="form-check-label" for="inlineCheckbox2">Female</label>
-              </div>
-          </div>
-      
-          <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Phone</label>
-              <input type="text" class="form-control" id="Phone" name="Phone">
-          </div>
-      
-          <div class="input-group flex-nowrap my-2">
-            <span class="input-group-text" id="addon-wrapping">Station</span>
-            <select name="Class_id" class="form-control">
-                <option value="" id="Dis">Select Station</option>
-                <% stations.forEach(station => { %>
-                    <option value="<%= station._id %>"><%= station.StationName %></option>
-                <% }) %>
-            </select>
-        </div>
-      
-          <div style="text-align: end;">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save changes</button>
-          </div>
-      </form>
-      
-    </div>
-
-  </div>
-</div>
-</div>
-<%- include('footer') %>
-
-<script>
-function edit(_id, FullName, Sex, Phone, station_Id) {  
-
-    console.log("Officer ID:", _id);
-    console.log("Officer Name:", FullName);
-    console.log("Officer sex:", Sex);
-    console.log("Officer ph:", Phone);
-    console.log("Officer Station ID:", station_Id);
-
-    $('#_id').val(_id);
-    $('#FullName').val(FullName);
-    $('#Phone').val(Phone);
-    if (Sex === "Male"){
-      $('#Sex[value="Male"]').prop('checked', true);
-    }else if (Sex === "Female"){
-      $('#Sex[value="Female"]').prop('checked', true); 
-    }
-
-    // Station not found buu leeyahy hadii la daabacana waa soo daabacaa
-    $('select[name="Dis"]').val(station_Id);
-    $('#editModal').modal('show');
-
-}
-
+  <div class="row px-1 mt-4">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">officer lists</h6>
   
-</script>
-<!-- Plugin js for this page -->
-<script src="/vendors/datatables.net/jquery.dataTables.js"></script>
-<script src="/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
-<!-- End plugin js for this page -->
-<script src="/js/data-table.js"></script>
+          <div class="table-responsive">
+            <table id="dataTableExample" class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Sex</th>
+                  <th>Phone</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% Procecutors.forEach(procecutor => { %>
+                <tr>                
+                  <td><%= procecutor.FullName %></td>
+                  <td><%= procecutor.Sex %></td>
+                  <td><%= procecutor.Phone %></td>
+  
+                  <td>
+                    <button type="button" onclick="edit(`<%= procecutor._id %>`, `<%= procecutor.FullName %>`, `<%= procecutor.Sex %>`, `<%= procecutor.Phone %>` )" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i class="fa-regular fa-pen-to-square"></i></button>&nbsp;
+                    <a href="/Deleteprocecutor/<%= procecutor._id  %>" class="bg-danger text-light" style="border: none;border-radius: 4px; font-size: 15px;padding: 7px 10px;">
+                      <i class="fa-regular fa-trash-can"></i></button>
+                  </td>
+  
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Button trigger modal -->
+  <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button> -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/EditOfficer" method="post">
+            <input type="hidden" id="_id" name="id">
+            <div class="mb-3">
+                <label for="FullName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="FullName" name="FullName">
+            </div>
+        
+            <label class="form-label">Sex</label>
+            <div style="border: 1px solid rgb(224, 224, 224); padding: 6px 9px; border-radius: 8px;">
+                <div class="form-check form-check-inline mx-5">
+                    <input class="form-check-input" type="radio" id="Sex" value="Male" name="Sex">
+                    <label class="form-check-label" for="inlineCheckbox1">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="Sex" value="Female" name="Sex">
+                    <label class="form-check-label" for="inlineCheckbox2">Female</label>
+                </div>
+            </div>
+        
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="Phone" name="Phone">
+            </div>
+        
+            <div style="text-align: end;">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+        
+      </div>
+  
+    </div>
+  </div>
+  </div>
+  <%- include('footer') %>
+  
+  <script>
+  function edit(_id, FullName, Sex, Phone, station_Id) {  
+  
+      console.log("Officer ID:", _id);
+      console.log("Officer Name:", FullName);
+      console.log("Officer sex:", Sex);
+      console.log("Officer ph:", Phone);
+      console.log("Officer Station ID:", station_Id);
+  
+      $('#_id').val(_id);
+      $('#FullName').val(FullName);
+      $('#Phone').val(Phone);
+      if (Sex === "Male"){
+        $('#Sex[value="Male"]').prop('checked', true);
+      }else if (Sex === "Female"){
+        $('#Sex[value="Female"]').prop('checked', true); 
+      }
+  
+      // Station not found buu leeyahy hadii la daabacana waa soo daabacaa
+      $('#editModal').modal('show');
+  
+  }
+  
+    
+  </script>
+  <!-- Plugin js for this page -->
+  <script src="/vendors/datatables.net/jquery.dataTables.js"></script>
+  <script src="/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
+  <!-- End plugin js for this page -->
+  <script src="/js/data-table.js"></script>
+  </div>
+  
+  
 </div>
 
 

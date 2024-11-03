@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Xeerilaaliye = mongoose.Schema({
+const procecutor = mongoose.Schema({
     "FullName": {
         type: String,
         required: true,
@@ -15,4 +15,4 @@ const Xeerilaaliye = mongoose.Schema({
     },
 }, { timestamps: true });
 
-module.exports = mongoose.model('Xeerilaaliye', Xeerilaaliye);
+module.exports = mongoose.model('procecutor', procecutor);
