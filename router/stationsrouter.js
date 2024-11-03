@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Station = require('../models/station_model');
-// const IsAuthenticated = require('../server');
+// const IsAuthenticated = require('./Userrouter');
 
 const router = express.Router();
 

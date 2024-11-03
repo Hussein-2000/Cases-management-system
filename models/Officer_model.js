@@ -7,7 +7,6 @@ const Officer = mongoose.Schema({
     },
     "Sex": {
         type: String,
-        required: true,
     },
     "Phone": {
         type: String,
@@ -17,11 +16,6 @@ const Officer = mongoose.Schema({
         type:mongoose.Types.ObjectId,
         ref:"Station"
     },
-    "Created_at": {
-        type: String,
-        required: true,
-        default: Date.now()
-    }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Officer', Officer);

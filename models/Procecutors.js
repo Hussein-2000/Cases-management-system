@@ -13,11 +13,6 @@ const Xeerilaaliye = mongoose.Schema({
         type: String,
         required: true,
     },
-    "Created_at": {
-        type: String,
-        required: true,
-        default: Date.now()
-    }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Xeerilaaliye', Xeerilaaliye);

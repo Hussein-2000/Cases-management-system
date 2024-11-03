@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const Userroute = require('./router/Userrouter.js');
 const stationroute = require('./router/stationsrouter.js');
+const officerroute = require('./router/officerrouter.js');
+const Investigator = require('./router/Investigator.js');
 const path = require('path');
 
 const app = express();
@@ -61,6 +63,8 @@ connectToDatabase();
 // Routes page
 app.use('', Userroute); //ROUTER PAGE
 app.use('', stationroute); //stations PAGE
+app.use('', officerroute); //Officor PAGE
+app.use('', Investigator); //Investigator PAGE
 
 
 

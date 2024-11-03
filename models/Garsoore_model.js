@@ -18,6 +18,5 @@ const Garsoore = mongoose.Schema({
         required: true,
         default: Date.now()
     }
-});
-
+}, { timestamps: true });
 module.exports = mongoose.model('Garsoore', Garsoore);

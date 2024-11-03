@@ -11,7 +11,6 @@ const Station = mongoose.Schema({
         required: true,
         unique: true
     },
-  
-},{Ttimestamp: true});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Station', Station);

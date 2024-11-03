@@ -4,7 +4,7 @@
 <div class="page-content">
   <!-- Button trigger modal -->
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Add Officer
+    Add investigator
   </button>
 
   <!-- Modal -->
@@ -16,7 +16,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="/AddOfficer" method="post">
+          <form action="/AddInvestigator" method="post">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Full Name</label>
               <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="FullName">
@@ -68,7 +68,7 @@
   </div>
 </div>
 
-<div class="row px-3">
+<div class="row px-1 mt-4">
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
@@ -87,17 +87,17 @@
               </tr>
             </thead>
             <tbody>
-              <% officers.forEach(officer => { %>
+              <% Investigators.forEach(Investigator => { %>
               <tr>                
-                <td><%= officer.FullName %></td>
-                <td><%= officer.Sex %></td>
-                <td><%= officer.Phone %></td>
-                <%= console.log("object", officer.station_Id); %>
-                <%= console.log("DiS", officer.station_Id.District); %>
-                <td><%= officer.station_Id ? officer.station_Id.District : 'No station assigned' %></td>
+                <td><%= Investigator.FullName %></td>
+                <td><%= Investigator.Sex %></td>
+                <td><%= Investigator.Phone %></td>
+                
+                <td><%= Investigator.station_Id ? Investigator.station_Id.District : 'No station assigned' %></td>
+
                 <td>
-                  <button type="button" onclick="edit(`<%= officer._id %>`, `<%= officer.FullName %>`, `<%= officer.Sex %>`, `<%= officer.Phone %>`, `<%= officer.station_Id.District %>` )" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i class="fa-regular fa-pen-to-square"></i>HI</button>&nbsp;
-                  <a href="/DeleteOfficer/<%= officer._id  %>" class="bg-danger text-light" style="border: none;border-radius: 4px; font-size: 15px;padding: 7px 10px;">
+                  <button type="button" onclick="edit(`<%= Investigator._id %>`, `<%= Investigator.FullName %>`, `<%= Investigator.Sex %>`, `<%= Investigator.Phone %>`)" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i class="fa-regular fa-pen-to-square"></i>HI</button>&nbsp;
+                  <a href="/DeleteInvestigator/<%= Investigator._id  %>" class="bg-danger text-light" style="border: none;border-radius: 4px; font-size: 15px;padding: 7px 10px;">
                     <i class="fa-regular fa-trash-can"></i></button>
                 </td>
 
@@ -124,7 +124,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/EditOfficer" method="post">
+        <form action="/EditInvestigator" method="post">
           <input type="hidden" id="_id" name="id">
           <div class="mb-3">
               <label for="FullName" class="form-label">Full Name</label>
@@ -149,14 +149,12 @@
           </div>
       
           <div class="input-group flex-nowrap my-2">
-            <span class="input-group-text" id="addon-wrapping">Station</span>
-            <select name="Class_id" class="form-control">
-                <option value="" id="Dis">Select Station</option>
-                <% stations.forEach(station => { %>
-                    <option value="<%= station._id %>"><%= station.StationName %></option>
-                <% }) %>
-            </select>
-        </div>
+              <span class="input-group-text" id="addon-wrapping">Station</span>
+              <select name="Class_id" class="form-control">
+                  <option value="">Select Station</option>
+                  <option value="Dharkeynlee">Dharkeynlee</option>
+              </select>
+          </div>
       
           <div style="text-align: end;">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -189,8 +187,8 @@ function edit(_id, FullName, Sex, Phone, station_Id) {
       $('#Sex[value="Female"]').prop('checked', true); 
     }
 
-    // Station not found buu leeyahy hadii la daabacana waa soo daabacaa
-    $('select[name="Dis"]').val(station_Id);
+    //Station not found buu leeyahy hadii la daabacana waa soo daabacaa
+    // $('select[name="Class_id"]').val(station_Id);
     $('#editModal').modal('show');
 
 }

@@ -6,54 +6,59 @@ const userModel = require('../models/user_model');
 const router = express.Router();
 
 
-function IsAuthenticated(req, res, next){
-    if (req.session.user){
-        return next();
-        // res.redirect('/');
-    } else{
-        res.redirect('/loginUser');
+function IsAuthenticated(req, res, next) {
+    console.log("HEY", req.session.user)
+    if (req.session.user) {
+        return next(); // Proceed to the next middleware/route handler if logged in
+    } else {
+        console.log("Redirecting to login as user is not authenticated");
+        return res.redirect('/loginUser'); // Redirect to login page if not authenticated
     }
 }
 
 function RedirectIfAuthenticated(req, res, next) {
     if (req.session.user) {
-        return res.redirect('/'); // Redirects to home if already logged in
+        console.log("Redirecting to home as user is already authenticated", req.session.user);
+        return res.redirect('/'); // Redirect to home page if already logged in
     }
-    next(); // Proceeds to login page if not logged in
+    // If the user is not authenticated, proceed to the login page
+    console.log("Proceeding to login page");
+    return next();
 }
 
-router.get('/loginUser', RedirectIfAuthenticated, (req, res) => {
+router.get('/loginUser', (req, res) => {
+    console.log("LOGIG")
     res.render('login' , {title: ' - Login Page'});
 })
 
 
-router.get('/', IsAuthenticated, (req, res) => {
+router.get('/', (req, res) => {
     console.log("Hi in the Home")
     res.render('Home', {title: ' - Home page'});
 })
 
 
 //Send data from bowser tp the server
-// router.post('/Saveuser', async (req, res) => {
-//     try {
-//         console.log("REquest", req.body)
-//         const users = new user({
-//             id: 1,
-//             userName: req.body.email,
-//             password: req.body.password
-//         })
-//         console.log("USER", users)
+router.post('/Saveuser', async (req, res) => {
+    try {
+        console.log("REquest", req.body)
+        const users = new userModel({
+            id: 1,
+            userName: req.body.userName,
+            password: req.body.password
+        })
+        console.log("USER", users)
 
-//         const isUser = await users.save();
-//         console.log("USER IS",isUser)
+        const isUser = await users.save();
+        console.log("USER IS",isUser)
         
-//     } catch (error) {
-//         res.json({ error: error});
-//     }
-//     finally {
-//         res.redirect('/');
-//     }
-// })
+    } catch (error) {
+        res.json({ error: error});
+    }
+    finally {
+        res.redirect('/');
+    }
+})
 
 //AUTHENTICATES THE USER IF EXIST OR NOT
 
@@ -143,3 +148,4 @@ router.post('/LogOut', (req, res) => {
 
 
 module.exports = router;
+// module.exports = IsAuthenticated;
