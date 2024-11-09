@@ -12,14 +12,14 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Officer</h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Case Type</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form action="/AddCaseTypes" method="post">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Case Nmae</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="FullName">
+              <input required type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="FullName">
               <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
             </div>
         
@@ -96,10 +96,10 @@
         </div>
         <div class="modal-body">
           <form action="/EditCaseType" method="post">
-            <input type="hidden" id="_id" name="id">
+            <input required type="hidden" id="_id" name="id">
             <div class="mb-3">
                 <label for="FullName" class="form-label">Case type</label>
-                <input type="text" class="form-control" id="FullName" name="casseType">
+                <input required type="text" class="form-control" id="FullName" name="casseType">
             </div>
             <div class="mb-3">
                 <label for="tArea" class="form-label"></label>

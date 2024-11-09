@@ -16,7 +16,7 @@ router.get('/Cases', async (req,res)=>{
      const investigator = await Investigator.find();
 
      try {
-          const cases = await Cases.find().populate('StationId').populate('CaseTypeId');
+          const cases = await Cases.find().populate('StationId').populate('CaseTypeId').populate('investigatorId');
           console.log("object", cases);
 
           res.render('Case_Registration', {stations, caseTypes, cases, investigator});
@@ -37,6 +37,7 @@ router.post('/AddCases', async (req, res)=>{
                DefendantNationalId: req.body.DefendantNationalId,
                CaseTypeId: req.body.CaseTypeId,
                StationId: req.body.StationId,
+               investigatorId: req.body.InvestigatorId,
                Issue: req.body.Issue,
                Status : "OPENED"
           });
@@ -81,27 +82,27 @@ router.post('/EditLawyer', async (req, res) => {
      }
  });
  
- router.get('/DeleteCases/:_id', async (req, res) => {
-     const ID = req.params.id;
-     console.log("REQUEST", ID);
-     const id = req.params._id;
+//  router.get('/DeleteCases/:_id', async (req, res) => {
+//      const ID = req.params.id;
+//      console.log("REQUEST", ID);
+//      const id = req.params._id;
 
-     try {
-          const IsDeleted = await Cases.findByIdAndDelete(id);
+//      try {
+//           const IsDeleted = await Cases.findByIdAndDelete(id);
 
-          if (IsDeleted) {
-               res.redirect('/Cases');
-          }
-          else{
-               res.status(404).send("No Officer found with this ID");
-          }
-     } catch (error) {
-          console.error("ERROR: ", error);
-        res.status(500).send("ERROR: " + error.message);
-     }
+//           if (IsDeleted) {
+//                res.redirect('/Cases');
+//           }
+//           else{
+//                res.status(404).send("No Officer found with this ID");
+//           }
+//      } catch (error) {
+//           console.error("ERROR: ", error);
+//         res.status(500).send("ERROR: " + error.message);
+//      }
 
 
- });
+//  });
  
 //TODO:
 

@@ -21,7 +21,7 @@ const Cases = mongoose.Schema({
         required: true,
         unique: true
     },
-    "investigator": {
+    "investigatorId": {
         type: mongoose.Types.ObjectId,
         ref: "Investigator"
     },

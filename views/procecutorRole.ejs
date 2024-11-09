@@ -9,43 +9,62 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Attach documents for investigation role </h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Procecutor Review</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="/AddInvestigation" method="post">
-            <input type="hidden" id="CaseId" name="CaseId">
+          <form action="/AddprocecutorRole" method="post">
+            <div class="input-group flex-nowrap my-2">
+              <span class="input-group-text" id="addon-wrapping">Case Type</span>
+
+              <select name="CaseId" class="form-control" id="CaseTypeIdRoll">
+                <option disabled>Select Case Type</option>
+                <% data.forEach(c => { %>
+                <option value="<%= c._id %>"><%= c.Plaintiff %></option>
+                <% }) %>
+              </select>
+            </div>
             <diss="mb-5">
-              <label for="exampleInputEmail1" class="form-label">witnesses</label>
-              <textarea claea name="witnesses" id="tArea" style="width: 100%; padding: 10PX 15PX; " placeholder="Enter Issue" rows="6"></textarea>
+              <label for="exampleInputEmail1" class="form-label">Discription</label>
+              <textarea claea name="Discription" id="tArea" style="width: 100%; padding: 10PX 15PX; " placeholder="Enter Issue" rows="6"></textarea>
               <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Attachments</label>
                 <input required type="file" name="Attachments" class="form-control" id="Attachments">
               </div>
               <div class="mb-3">
-                <label for="tArea" class="form-label"></label>
-                <textarea name="Description" id="tArea" style="width: 100%; padding: 10PX 15PX; " placeholder="Enter Issue" rows="6"></textarea>
+                <label for="tArea" class="form-label">Date and Time</label>
+                <input required type="datetime-local" name="ScheduleTime" id="ScheduleTime" style="width: 100%; height: 38px; padding: 0 15px;">
               </div>
+              <div class="input-group flex-nowrap my-2">
+                <span class="input-group-text" id="addon-wrapping">Judge</span>
+  
+                <select name="JudgeId" class="form-control" id="CaseTypeIdRoll">
+                  <option disabled>Select Judge </option>
+                  <% Judges.forEach(c => { %>
+                  <option value="<%= c._id %>"><%= c.FullName %></option>
+                  <% }) %>
+                </select>
+              </div>
+  
+              <!-- <label for="tArea" class="form-label">Issue</label> -->
+  
               <div style="text-align: end;">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Save changes</button>
               </div>
             </div>
-
-            <!-- <label for="tArea" class="form-label">Issue</label> -->
-
           </form>
         </div>
       </div>
     </div>
-  
+
 
   <div class="row px-1 mt-4">
     <div class="col-md-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          <h6 class="card-title">Investigator LIST</h6>
+          <h6 class="card-title">Procecutor roles</h6>
 
           <div class="table-responsive">
             <table id="dataTableExample" class="table">
@@ -56,11 +75,15 @@
                   <th>Defendant</th>
                   <th>Issue</th>
                   <th>Case type </th>
-                  <th>District</th>
-                  <th>Investigator</th>
                   <th>witnesses</th>
                   <th>Description</th>
-                  <td>Attachments</td>
+                  <td>Investigation Attachments</td>
+                  <th>Proscuter</th>
+                  <th>Lawyer</th>
+                  <th>prosecutor Attachments</th>
+                  <th>Description</th>
+                  <th>Judge</th>
+                  <th>Schedule Time</th>
                   <td>Status</td>
                   <td>Action</td>
 
@@ -68,27 +91,28 @@
               </thead>
               <tbody>
                 <% data.forEach(c => { %>
+                  <%= console.log("object", data); %>
+
                 <tr>
                   <td><%= c.Case_id %></td>
                   <td><%= c.Plaintiff %></td>
                   <td><%= c.Defendant %></td>
                   <td><%= c.Issue %></td>
                   <td><%= c.caseTypes.casseType %></td>
-                  <td><%= c.stations.District %></td>
-                  <td><%= c.investigators.FullName %></td>
-                  <% if (c.InverstigatorRole != undefined ) { %>
+
+
                   <td><%= c.InverstigatorRole.witnesses %></td>
                   <td><%= c.InverstigatorRole.Description %></td>
-                  <%  %>
-                  <% } else { %>
-                  <td></td>
-                  <td></td>
-                  <% } %>
-
-
+                  <td><a href="../uploads/<%= c.InverstigatorRole.Attachments %>" target="_blank">Attachments</a></td>
+                  <td><%= c.prosecutor.FullName %></td>
+                  <td><%= c.lawyer.FullName %></td>
+                  <td><a href="../uploads/<%= c.prosecutorRole ? c.prosecutorRole.Attachments : ""  %>" target="_blank">Attachments</a></td>
                   
-                  <% if (c.Status === "OPENED") { %>
-                    <td></td>
+                  <td><%= c.prosecutorRole ? c.prosecutorRole.Description : "" %></td>
+                  <td><%= c.prosecutorRole ? c.judge.FullName : "" %></td>
+                  <td><%= c.prosecutorRole ? new Date(c.prosecutorRole.ScheduleTime).toLocaleString() : "" %></td>
+                  
+                  <% if (c.Status === "Reviewed") { %>
                   <td><%= c.Status %></td>
 
                   <td>
@@ -98,13 +122,8 @@
 
                   </td>
 
-                 <% } else { %>
-                    <% if (c.InverstigatorRole != undefined ) { %>
-                    <td><a href="../uploads/<%= c.InverstigatorRole.Attachments %>" target="_blank">Attachments</a></td>
-                    <%  %>
-                    <% } else { %>
-                        <td></td>
-                    <% } %>
+                  <% } else { %>
+
 
 
                   <td><%= c.Status %></td>
@@ -113,9 +132,10 @@
                       <i class="fa-regular fa-pen-to-square"></i>
                     </button>&nbsp;
                   </td>
-                  <% } %> 
+                  <% } %>
 
                 </tr>
+                
                 <% }) %>
 
 
@@ -136,7 +156,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit title</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -146,7 +166,7 @@
               <input required type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
               <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
             </div>
-            <label class="form-label" font-weight: bold;>Sex</label>
+            <label class="form-label" font-weight: bold; ">Sex</label>
           <div style=" border: 1px solid rgb(224, 224, 224);padding: 6px 9px; border-radius: 8px;">
 
               <div class="form-check form-check-inline mx-5 ">
@@ -178,11 +198,12 @@
 </div>
 <%- include('footer') %>
 <script>
+
   function edit(_id) {
     console.log("ID0", _id);
 
+      $('#caseId').val(_id);
     $('#CaseTypeIdRoll').val(_id).change();
-    $('#CaseId').val(_id);
     $('#editModal').modal('show');
 
   }

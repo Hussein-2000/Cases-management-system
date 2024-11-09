@@ -9,43 +9,58 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Attach documents for investigation role </h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Case Review </h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="/AddInvestigation" method="post">
-            <input type="hidden" id="CaseId" name="CaseId">
-            <diss="mb-5">
-              <label for="exampleInputEmail1" class="form-label">witnesses</label>
-              <textarea claea name="witnesses" id="tArea" style="width: 100%; padding: 10PX 15PX; " placeholder="Enter Issue" rows="6"></textarea>
-              <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Attachments</label>
-                <input required type="file" name="Attachments" class="form-control" id="Attachments">
-              </div>
-              <div class="mb-3">
-                <label for="tArea" class="form-label"></label>
-                <textarea name="Description" id="tArea" style="width: 100%; padding: 10PX 15PX; " placeholder="Enter Issue" rows="6"></textarea>
-              </div>
-              <div style="text-align: end;">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-              </div>
+          <form action="/AddCaseReview" method="post">
+            <input type="hidden" name="CaseId" id="CaseId">
+
+            <div class="input-group flex-nowrap my-2">
+              <span class="input-group-text" id="addon-wrapping">prosecutors selection</span>
+              
+
+              <select name="prosecutors" class="form-control" id="CaseTypeIdRoll" >
+                <option disabled>Select Case Type</option>
+                <% prosecutors.forEach(c => { %>
+                <option value="<%= c._id %>"><%= c.FullName %></option>
+                <% }) %>
+              </select>
+            </div>
+            <div class="input-group flex-nowrap my-2">
+              <span class="input-group-text" id="addon-wrapping">Lawyer selection</span>
+
+              <select name="lawyer" class="form-control" id="CaseTypeIdRoll" >
+                <option disabled>Select Case Type</option>
+                <% Lawyers.forEach(c => { %>
+                <option value="<%= c._id %>"><%= c.FullName %></option>
+                <% }) %>
+              </select>
             </div>
 
-            <!-- <label for="tArea" class="form-label">Issue</label> -->
 
-          </form>
+            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+            <div style="text-align: end;">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
         </div>
+
+
+
+        <!-- <label for="tArea" class="form-label">Issue</label> -->
+
+        </form>
       </div>
     </div>
-  
+  </div>
+
 
   <div class="row px-1 mt-4">
     <div class="col-md-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          <h6 class="card-title">Investigator LIST</h6>
+          <h6 class="card-title">CASES Review </h6>
 
           <div class="table-responsive">
             <table id="dataTableExample" class="table">
@@ -56,11 +71,11 @@
                   <th>Defendant</th>
                   <th>Issue</th>
                   <th>Case type </th>
-                  <th>District</th>
-                  <th>Investigator</th>
                   <th>witnesses</th>
                   <th>Description</th>
                   <td>Attachments</td>
+                  <th>Proscuter</th>
+                  <th>Lawyer</th>
                   <td>Status</td>
                   <td>Action</td>
 
@@ -68,27 +83,30 @@
               </thead>
               <tbody>
                 <% data.forEach(c => { %>
+                <% if (c.Status !== "OPENED") { %>
+
+
                 <tr>
                   <td><%= c.Case_id %></td>
                   <td><%= c.Plaintiff %></td>
                   <td><%= c.Defendant %></td>
                   <td><%= c.Issue %></td>
                   <td><%= c.caseTypes.casseType %></td>
-                  <td><%= c.stations.District %></td>
-                  <td><%= c.investigators.FullName %></td>
-                  <% if (c.InverstigatorRole != undefined ) { %>
+
+
                   <td><%= c.InverstigatorRole.witnesses %></td>
                   <td><%= c.InverstigatorRole.Description %></td>
+                  <td><a href="../uploads//MY_heart.pdf" target="_blank">Attachments</a></td>
+                  <% if (c.CaseReview != undefined ) { %>
+                  <td><%= c.prosecutor.FullName %></td>
+                  <td><%= c.lawyer.FullName %></td>
                   <%  %>
                   <% } else { %>
                   <td></td>
                   <td></td>
                   <% } %>
 
-
-                  
-                  <% if (c.Status === "OPENED") { %>
-                    <td></td>
+                  <% if (c.Status === "Investigation") { %>
                   <td><%= c.Status %></td>
 
                   <td>
@@ -98,13 +116,8 @@
 
                   </td>
 
-                 <% } else { %>
-                    <% if (c.InverstigatorRole != undefined ) { %>
-                    <td><a href="../uploads/<%= c.InverstigatorRole.Attachments %>" target="_blank">Attachments</a></td>
-                    <%  %>
-                    <% } else { %>
-                        <td></td>
-                    <% } %>
+                  <% } else { %>
+
 
 
                   <td><%= c.Status %></td>
@@ -113,9 +126,10 @@
                       <i class="fa-regular fa-pen-to-square"></i>
                     </button>&nbsp;
                   </td>
-                  <% } %> 
+                  <% } %>
 
                 </tr>
+                <% } %>
                 <% }) %>
 
 
@@ -143,24 +157,24 @@
           <form action="/officer">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Full Name</label>
-              <input required type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input required required required type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
               <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
             </div>
-            <label class="form-label" font-weight: bold;>Sex</label>
+            <label class="form-label" font-weight: bold; ">Sex</label>
           <div style=" border: 1px solid rgb(224, 224, 224);padding: 6px 9px; border-radius: 8px;">
 
               <div class="form-check form-check-inline mx-5 ">
-                <input required class="form-check-input" type="radio" id="inlineCheckbox1" value="Male" name="Sex">
+                <input required required required class="form-check-input" type="radio" id="inlineCheckbox1" value="Male" name="Sex">
                 <label class="form-check-label" for="inlineCheckbox1">Male</label>
               </div>
               <div class="form-check form-check-inline">
-                <input required class="form-check-input" type="radio" id="inlineCheckbox2" value="Female" name="Sex">
+                <input required required required class="form-check-input" type="radio" id="inlineCheckbox2" value="Female" name="Sex">
                 <label class="form-check-label" for="inlineCheckbox2">Female</label>
               </div>
         </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Phone</label>
-          <input required type="text" class="form-control" id="exampleInputPassword1">
+          <input required required required type="text" class="form-control" id="exampleInputPassword1">
         </div>
 
 
@@ -178,11 +192,11 @@
 </div>
 <%- include('footer') %>
 <script>
+
   function edit(_id) {
     console.log("ID0", _id);
 
-    $('#CaseTypeIdRoll').val(_id).change();
-    $('#CaseId').val(_id);
+      $('#CaseId').val(_id);
     $('#editModal').modal('show');
 
   }

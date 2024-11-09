@@ -4,7 +4,7 @@
 <div class="page-content">
   <!-- Button trigger modal -->
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Add Judge
+   + Add Judge
   </button>
 
   <!-- Modal -->
@@ -12,42 +12,42 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Officer</h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">New Judge</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form action="/AddJudge" method="post">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="FullName">
+              <input required type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="FullName">
               <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
             </div>
-            <label class="form-label" font-weight: bold; ">Sex</label>
+            <label class="form-label" style="font-weight: bold;">Sex</label>
               <div style=" border: 1px solid rgb(224, 224, 224);padding: 6px 9px; border-radius: 8px;">
 
               <div class="form-check form-check-inline mx-5 ">
-                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="Male" name="Sex">
+                <input required class="form-check-input" type="radio" id="inlineCheckbox1" value="Male" name="Sex">
                 <label class="form-check-label" for="inlineCheckbox1">Male</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Female" name="Sex">
+                <input required class="form-check-input" type="radio" id="inlineCheckbox2" value="Female" name="Sex">
                 <label class="form-check-label" for="inlineCheckbox2">Female</label>
               </div>
         </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Phone</label>
-          <input type="text" class="form-control" id="exampleInputPassword1" name="Phone">
+          <input required type="text" class="form-control" id="exampleInputPassword1" name="Phone">
         </div>
 
+        <div style="text-align: end;">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+  
+        </div>
       </div>
 
 
 
-        <div style="text-align: end;">
-          <button type="button" class="btn text-dark" style="border: none; background-color: rgb(228, 228, 228);">Cancel</button>
-          <button type="submit" class="btn btn-primary">Submit</button>
-
-        </div>
         </form>
       </div>
       <!-- <div class="modal-footer">
@@ -61,7 +61,7 @@
     <div class="col-md-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          <h6 class="card-title">officer lists</h6>
+          <h6 class="card-title">Judge lists</h6>
   
           <div class="table-responsive">
             <table id="dataTableExample" class="table">
@@ -105,32 +105,32 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Judge</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form action="/EditJudge" method="post">
-            <input type="hidden" id="_id" name="id">
+            <input required type="hidden" id="_id" name="id">
             <div class="mb-3">
                 <label for="FullName" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="FullName" name="FullName">
+                <input required type="text" class="form-control" id="FullName" name="FullName">
             </div>
         
             <label class="form-label">Sex</label>
             <div style="border: 1px solid rgb(224, 224, 224); padding: 6px 9px; border-radius: 8px;">
                 <div class="form-check form-check-inline mx-5">
-                    <input class="form-check-input" type="radio" id="Sex" value="Male" name="Sex">
+                    <input required class="form-check-input" type="radio" id="Sex" value="Male" name="Sex">
                     <label class="form-check-label" for="inlineCheckbox1">Male</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="Sex" value="Female" name="Sex">
+                    <input required class="form-check-input" type="radio" id="Sex" value="Female" name="Sex">
                     <label class="form-check-label" for="inlineCheckbox2">Female</label>
                 </div>
             </div>
         
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Phone</label>
-                <input type="text" class="form-control" id="Phone" name="Phone">
+                <input required type="text" class="form-control" id="Phone" name="Phone">
             </div>
         
             <div style="text-align: end;">

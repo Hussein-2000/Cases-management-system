@@ -32,7 +32,7 @@ router.post('/AddCaseTypes', async (req, res)=>{
 
           if (IsCaseTypeaved){
                console.log("If")
-               res.redirect('/CasesTypes')
+               res.redirect('/Cases')
           }
           else {
                console.log("Procecutor is not saved successfully")

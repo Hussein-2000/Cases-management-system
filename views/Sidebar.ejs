@@ -27,7 +27,7 @@
  <li class="nav-item">
   <form action="/CasesTypes" method="get">
   <button  class="nav-link" style="border: none;background-color: transparent;">
-    <i class="link-icon fa-solid fa-gavel" style="font-size: 17px;" ></i>
+    <i class="link-icon fa-solid fa-text-width" style="font-size: 16px;" ></i>
     <span class="link-title">Case types </span>
   </button>
 </form>
@@ -35,17 +35,46 @@
  <li class="nav-item">
   <form action="/Cases" method="get">
   <button  class="nav-link" style="border: none;background-color: transparent;">
-    <i class="link-icon fa-solid fa-gavel" style="font-size: 17px;" ></i>
-    <span class="link-title">case Management</span>
+    <i class="link-icon fa-solid fa-gavel" style="font-size: 15px;" ></i>
+    <span class="link-title">case Creation</span>
+  </button>
+</form>
+</li>
+<!-- <i class="fa-regular fa-eye"></i>
+<i class="fa-solid fa-arrows-to-eye"></i> 
+<i class="fa-solid fa-text-width"></i>
+-->
+ <li class="nav-item">
+   <a href="/InvertigationDashboard" class="nav-link">
+     <i class="link-icon fa-solid fa-arrows-to-eye"style="font-size: 15px;"></i>
+     <span class="link-title">Investigation</span>
+   </a>
+ </li>
+ <li class="nav-item">
+  <form action="/CaseReviewDashboard" method="get">
+  <button  class="nav-link" style="border: none;background-color: transparent;">
+    <i class="link-icon fa-regular fa-eye" style="font-size: 15px;"></i>
+    <span class="link-title">case review</span>
   </button>
 </form>
 </li>
  <li class="nav-item">
-   <a href="pages/apps/calendar.html" class="nav-link">
-     <i class="link-icon" data-feather="calendar"></i>
-     <span class="link-title">Task</span>
-   </a>
- </li>
+  <form action="/procecutorRoleDashboard" method="get">
+  <button  class="nav-link" style="border: none;background-color: transparent;">
+    <i class="link-icon fa-solid fa-user-tie"  style="font-size: 15px;"></i>
+    <span class="link-title">procecutor Role</span>
+  </button>
+</form>
+</li>
+ <li class="nav-item">
+  <form action="/JudgeRoleDashboard" method="get">
+  <button  class="nav-link" style="border: none;background-color: transparent;">
+    <i class="link-icon fa-solid fa-person-dots-from-line" style="font-size: 15px;" ></i>
+    <span class="link-title">Judge Review</span>
+  </button>
+</form>
+</li>
+ 
  <li class="nav-item nav-category">registration</li>
  <li class="nav-item">
   <form action="/stations" method="get">
@@ -64,10 +93,12 @@
 </form>
 </li>
 <!-- <i class="fa-solid fa-person-military-rifle"></i> -->
+<!-- <i class="fa-solid fa-user-graduate"></i> -->
+<!-- <i class="fa-regular fa-user"></i> -->
 <li class="nav-item">
   <form action="/investigator" method="get">
   <button  class="nav-link" style="border: none;background-color: transparent;">
-    <i class="link-icon" data-feather="calendar"></i>
+    <i class="link-icon fa-solid fa-arrows-to-eye" ></i>
     <span class="link-title">Investicator</span>
   </button>
 </form>
@@ -83,7 +114,7 @@
 <li class="nav-item">
   <form action="/Lawyer" method="get">
   <button  class="nav-link" style="border: none;background-color: transparent;">
-    <i class="link-icon" data-feather="calendar"></i>
+    <i class="link-icon fa-solid fa-user-graduate" ></i>
     <span class="link-title">Lawyer</span>
   </button>
 </form>
@@ -97,14 +128,14 @@
 </form>
 </li>
 <!-- <i class="fa-solid fa-person-dots-from-line"></i> -->
-<li class="nav-item">
+<!-- <li class="nav-item">
   <form action="/users" method="get">
   <button  class="nav-link" style="border: none;background-color: transparent;">
-    <i class="link-icon" data-feather="calendar"></i>
+    <i class="link-icon fa-regular fa-user" ></i>
     <span class="link-title">Users</span>
   </button>
 </form>
-</li>
+</li> -->
 <li class="nav-item nav-category">registration</li>
 <li class="nav-item">
   <form action="/LogOut" method="post">

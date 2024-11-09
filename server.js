@@ -11,7 +11,13 @@ const Judge = require('./router/Judge.js');
 const Lawyer = require('./router/Lawyer.js');
 const Cases = require('./router/cases.js');
 const CasesTypes = require('./router/caseType.js');
+const InvetigatorRole = require('./router/InvetigatorRole.js');
+const CaseReview = require('./router/CaseReview.js');
+const JudgeRole = require('./router/JudgeRole.js');
+const procecutorRole = require('./router/procecutorRole.js');
+const report = require('./router/Report.js');
 const path = require('path');
+
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -22,6 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.set('views', './views'); 
 app.use(express.static(path.join(__dirname, 'assets'))); // Static assets
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 // Session configuration
 app.use(session({
@@ -75,6 +82,11 @@ app.use('', Lawyer); //procecutors PAGE
 app.use('', Judge); //Judges PAGE
 app.use('', Cases); //Cases PAGE
 app.use('', CasesTypes); //Cases PAGE
+app.use('', InvetigatorRole); //Cases PAGE
+app.use('', CaseReview); //Cases PAGE
+app.use('', procecutorRole); //procecutorRole PAGE
+app.use('', JudgeRole); //procecutorRole PAGE
+app.use('', report); //procecutorRole PAGE
 
 
 

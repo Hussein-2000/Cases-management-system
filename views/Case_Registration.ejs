@@ -19,26 +19,26 @@
                     <div class="modal-body">
                         <form action="/AddCases" method="post">
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">plaintiff Name</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                <label for="exampleInputEmail1" class="form-label" >plaintiff Name</label>
+                                <input required type="text" class="form-control" id="exampleInputEmail1"
                                     aria-describedby="emailHelp" name="Plaintiff">
                                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">plaintiff National ID</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                <input required type="text" class="form-control" id="exampleInputEmail1"
                                     aria-describedby="emailHelp" name="PlaintiffNationalId">
                                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Defendant Name</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                <input required type="text" class="form-control" id="exampleInputEmail1"
                                     aria-describedby="emailHelp" name="Defendant">
                                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Defendant National ID</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                <input required type="text" class="form-control" id="exampleInputEmail1"
                                     aria-describedby="emailHelp" name="DefendantNationalId">
                                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                             </div>
@@ -70,7 +70,7 @@
                             <div class="input-group flex-nowrap  mt-3 ">
                                 <span class="input-group-text" id="addon-wrapping">Investigator</span>
             
-                                <select name="StationId" class="form-control">
+                                <select name="InvestigatorId" class="form-control">
                                     <option disabled>Select Station</option>
                                     <% investigator.forEach(station => { %>
                                         <option value="<%= station._id %>"><%= station.FullName %></option>
@@ -132,12 +132,12 @@
                                       <td><%= c.Issue %></td>
                                       <td><%= c.CaseTypeId.casseType %></td>
                                       <td><%= c.StationId.StationName %></td>
+                                      <td><%= c.investigatorId.FullName %></td>
                                       <td><%= c.Status %></td>
                                      
                                       <td>
                                         <button type="button" onclick="edit(`<%= c._id %>`, `<%= c.FullName %>`, `<%= c.Sex %>`, `<%= c.Phone %>`)" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;"><i class="fa-regular fa-pen-to-square"></i></button>&nbsp;
-                                        <a href="/DeleteCases/<%= c._id  %>" class="bg-danger text-light" style="border: none;border-radius: 4px; font-size: 15px;padding: 7px 10px;">
-                                          <i class="fa-regular fa-trash-can"></i>
+                                        
                                       </td>
                       
                                     </tr>
@@ -166,7 +166,7 @@
                     <form action="/officer">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1"
+                            <input required type="text" class="form-control" id="exampleInputEmail1"
                                 aria-describedby="emailHelp">
                             <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                         </div>
@@ -174,19 +174,19 @@
           <div style=" border: 1px solid rgb(224, 224, 224);padding: 6px 9px; border-radius: 8px;">
 
                             <div class="form-check form-check-inline mx-5 ">
-                                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="Male"
+                                <input required class="form-check-input" type="radio" id="inlineCheckbox1" value="Male"
                                     name="Sex">
                                 <label class="form-check-label" for="inlineCheckbox1">Male</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Female"
+                                <input required class="form-check-input" type="radio" id="inlineCheckbox2" value="Female"
                                     name="Sex">
                                 <label class="form-check-label" for="inlineCheckbox2">Female</label>
                             </div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Phone</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1">
+                    <input required type="text" class="form-control" id="exampleInputPassword1">
                 </div>
 
                 

@@ -1,0 +1,325 @@
+<%- include('Dashboard') %>
+<link rel="stylesheet" href="/vendors/datatables.net-bs5/dataTables.bootstrap5.css">
+
+<div class="page-content">
+  <!-- Button trigger modal -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Attach documents for investigatio role </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/AddJudgeRole" method="post">
+            <div class="input-group flex-nowrap my-2">
+              <span class="input-group-text" id="addon-wrapping">Case Type</span>
+
+              <select name="CaseId" class="form-control" id="CaseTypeIdRoll">
+                <option disabled>Select Case Type</option>
+                <% data.forEach(c => { %>
+                <option value="<%= c._id %>"><%= c.Plaintiff %></option>
+                <% }) %>
+              </select>
+            </div>
+            <diss="mb-5">
+              <label for="exampleInputEmail1" class="form-label">Discription</label>
+              <textarea claea name="Discription" id="tArea" style="width: 100%; padding: 10PX 15PX; " placeholder="Enter Issue" rows="6"></textarea>
+              <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+              <div class="input-group flex-nowrap my-2">
+                <span class="input-group-text" id="addon-wrapping">XUKUNKA MAXKAMADA </span>
+
+                <select name="XUKUN" class="form-control" id="CaseTypeIdRoll">
+                  <option disabled>XUkun MAXKAMADA</option>
+
+                  <option value="DIL">DIL</option>
+                  <option value="Xabsi daain ah">Xabsi daain ah</option>
+                  <option value="Xabsi 15 sano ka badan">Xabsi 15 sano ka badan</option>
+                  <option value="Xabsi 15 sano ka yar">Xabsi 15 sano ka yar</option>
+                  <option value="FASAX">FASAX</option>
+
+                </select>
+              </div>
+
+
+              <!-- <label for="tArea" class="form-label">Issue</label> -->
+
+              <div style="text-align: end;">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row px-1 mt-4">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Judge Review</h6>
+
+          <div class="table-responsive">
+            <table id="dataTableExample" class="table">
+              <thead>
+                <tr>
+                  <th>Case id</th>
+                  <th>Plaintiff</th>
+                  <th>Defendant</th>
+                  <th>Issue</th>
+                  <th>Case type </th>
+                  <th>witnesses</th>
+                  <th>Description</th>
+                  <td>Investigation Attachments</td>
+                  <th>Proscuter</th>
+                  <th>Lawyer</th>
+                  <th>prosecutor Attachments</th>
+                  <th>Description</th>
+                  <th>Judge</th>
+                  <th>Description maxkamada</th>
+                  <th>ْXukunka maxkamada</th>
+                  <td>Status</td>
+                  <td>Action</td>
+
+                </tr>
+              </thead>
+              <tbody>
+                <% data.forEach(c => { %>
+                
+
+                <tr>
+                  <td><%= c.Case_id %></td>
+                  <td><%= c.Plaintiff %></td>
+                  <td><%= c.Defendant %></td>
+                  <td><%= c.Issue %></td>
+                  <td><%= c.caseTypes.casseType %></td>
+
+
+                  <td><%= c.InverstigatorRole.witnesses %></td>
+                  <td><%= c.InverstigatorRole.Description %></td>
+                  <td><a href="../uploads/<%= c.InverstigatorRole.Attachments %>" target="_blank">Attachments</a></td>
+                  <td><%= c.prosecutor ? c.prosecutor.FullName : ""  %></td>
+                  <td><%= c.lawyer ? c.lawyer.FullName : "" %></td>
+                  <td><a href="../uploads/<%= c.prosecutorRole ? c.prosecutorRole.Attachments : ""  %>" target="_blank">Attachments</a></td>
+                  <td><%= c.prosecutorRole ? c.prosecutorRole.Description : "" %></td>
+                  <td><%= c.prosecutorRole ? c.judge.FullName : "" %></td>
+                  <td><%= c.judgeroles ? c.judgeroles.Description : "" %></td>
+                  <td><%= c.judgeroles ? c.judgeroles.XUKUN : "" %></td>
+
+                  <% if (c.Status === "Procecutor") { %>
+                  <td><%= c.Status %></td>
+
+                  <td>
+                    <button type="button" onclick="edit(`<%= c._id %>`)" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;">
+                      <i class="fa-solid fa-spinner"></i>
+                    </button>&nbsp;
+
+                  </td>
+
+                  <% } else { %>
+
+
+
+                  <td><%= c.Status %></td>
+                  <td>
+                    
+                      <button type="button" onclick="edit('<%= c._id %>', '<%= c.Plaintiff %>', '<%= c.Defendant %>', '<%= c.Issue %>', '<%= c.caseTypes.casseType %>', '<%= c.InverstigatorRole.witnesses %>', '<%= c.InverstigatorRole.Description %>', '<%= c.prosecutor.FullName %>', '<%= c.prosecutor.Description %>', '<%= c.lawyer.FullName %>', '<%= c.prosecutorRole.Description %>', '<%= c.judge.FullName %>',  '<%= c.judge.XUKUN %>', '<%= c.judge.Description %>', )" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border: none;border-radius: 4px; font-size: 15px;padding: 4px 8px;">
+                        <i class="fa-solid fa-eye"></i>
+                      </button>&nbsp;
+                  </td>
+                  <% } %>
+
+                </tr>
+
+                <% }) %>
+
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Button trigger modal -->
+  <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+  <!-- Modal -->
+   
+
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+   
+          <div class="container d-flex justify-content-center flex-column align-items-center">
+            <div style="width: 800px;position:relative;background:rgb(242, 249, 255)" class="certificate p-4 gap-4 d-flex justify-content-center flex-column align-items-center">
+                <img src="uploads/logo3.png" style="width:60%;position:absolute;z-index:2;opacity:0.1;"  alt="">
+                <div style="z-index:2;">
+                    <div class="header py-1 my-1 w-100 border-bottom d-flex justify-content-center flex-column align-items-center gap-2">
+                  <!-- <input type="text" name="CaseId" id="CaseId"> -->
+
+                        <div class="logo">
+                            <img src="/Somali logo.jpg" style="width:150px;height:150px" alt="Logo" srcset="">
+                        </div>
+                        <p>MAXKAMADA GOBOLKA BANAADIR</p>
+                    </div>
+                    <div class="content w-100 d-flex flex-column justify-content-between gap-1">
+                        <div class="content-header pt-3 d-flex justify-content-center flex-column align-items-center">
+                            <h5>GOAANKA MAXKAMADA</h5>
+                            <h5>COMMERCIAL LICENSE</h5>
+                        </div>
+                        <div class="content-body w-100">
+                            <div class="shati-lam font-bold d-flex justify-content-between">
+                                <p>Shati Lam/License No. <span class="li_no"></span></p>
+                                <p>DATE: <span id="today"></span></p>
+                            </div>
+                            <fieldset>
+                                <legend>Personal Information</legend>
+                                
+                                <div class="grid-container">
+                                  <label for="id">plaintiff:</label>
+                                  <input type="text" id="plaintiff" value="Haliima Husein Ahmed">
+                                  
+
+                                  
+                                  <label for="email">Defendant Name:</label>
+                                  <input type="text" name="" id="Defendant" value="Aadan Said Muimin">
+                                  
+                                 
+                                </div>
+                              </fieldset>
+                              <fieldset>
+                                <legend>Investigator & procecutor & judgement info</legend>
+                                
+                                <div class="grid-container">
+                                  <label for="id">Investigator Name:</label>
+                                  <input type="text" id="prosecutorFullName" value="Hassan nur">
+                                  
+                                  <label for="name">Procecutor Name</label>
+                                  <input type="text", id="prosecutorFullName" value="Hassan nur">
+                                  
+                                  <label for="email">judgement Name:</label>
+                                  <input type="text", id="judgementFullName" value="Hussein Ahmed Osman">
+                                  
+                                  
+
+                                </div>
+                              </fieldset>
+                            <fieldset>
+                                <legend>judgement info</legend>
+                                
+                                <div class="grid-container">
+                                  <label for="id">Judge Name:</label>
+                                  <input type="text" id="JudgeName" value="Hussein Ahmed Osman">
+                                  
+                                  <label for="name">Description</label>
+                                  <textarea name="" id=""  >Eedeysanahay waxaa lagu helay qodobada lagu soo eedeeyay waxaana lagu xukumay 2sano oo xarig ah"</textarea>
+                                  
+                                  <label for="email">XUKUNKA MAXKAMADDA</label>
+                                  <input type="text", id="JUDMENTS" value="Xabsi 15 sano ka yar">
+                                  
+                                
+                                </div>
+                              </fieldset>
+                           
+                        </div>
+                        <div class="content-footer " >
+                        <div class="fg">
+                            <p>F.G. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, corrupti dolorem sequi voluptatum laborum dolor.</p>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae ex officiis, sequi voluptatem maiores maxime aut adipisci magnam doloribus eos.</p>
+                        </div>
+                        <div class="qr-generator  mt-3">
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="barcode">
+                                        <img src="Uploads/barcode.jpg" style="width: 80%;" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-7">
+                                    <div style="font-size: 15px;" class="so text-center">Agaasimaha Guud Ee Wasaaradda Ganacsiga Iyo Warshadaha</div>
+                                    <div style="font-size: 15px;" class="so text-center ">Director General Ministry Of Commerce and Industry</div>
+                                    <h6 style="font-size: 15px;" class=" text-center">Mr. Yuusuf Geedi Ahmed</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-6 d-flex justify-content-end">
+                                <div class="stamp position-relative">
+                                    <img style="width: 150px; position: absolute; right: 10px;top: -50px;" src="../uploads/WhatsApp Image 2024-11-06 at 08.01.32_a879792b.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="col-6 pt-5 pe-5 position-relative">
+                                <img src="/WhatsApp Image 2024-11-06 at 08.01.32_a879792b.jpg" style="width:40%;height:90px;position:absolute;top:-30px;left:50px;" alt="">
+                                <div class="signature border-top border-dark pt-2">
+                                    <div class="h6">Signature</div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <!--  -->
+        </div>
+  
+      </div>
+    </div>
+  </div>
+   
+<%- include('footer') %>
+<script>
+  function edit(_id, plaintiff, Defendant, Issue, casseType, witnesses, InverstigatorRoleDescription, prosecutorFullName, prosecutorDescription, lawyerFullName, prosecutorRoleDescription, judgeFullName, judgeXukun, judgeDes) {
+
+    $('#CaseId').val(_id);
+    $('#plaintiff').val(plaintiff);
+    $('#Defendant').val(Defendant);
+    $('#prosecutorFullName').val(prosecutorFullName);
+    $('#prosecutorDescription').val(prosecutorDescription);
+    $('#JUDMENTS').val(judgeXukun);
+    $('#JudgeDes').val(judgeDes);
+
+    
+    $('#editModal').modal('show');
+
+  }
+
+  window.editReport = function editReport(caseId) {
+    // Set the caseId in the hidden input field if needed
+    console.log("Case ID:", caseId);
+    
+    // Find the case data in the global data array (assuming data is available)
+    const caseDetails = data.find(c => c._id === caseId);
+    
+    if (caseDetails) {
+      // Populate the modal form with case details
+      $('#CaseTypeIdRoll').val(caseDetails._id).change(); // Select the case in the dropdown
+      $('#tArea').val(caseDetails.Description); // Set the case description
+      $('#editModal').modal('show'); // Show the modal
+
+      // Example: If you have more fields to populate, do it like this
+      // $('#someOtherField').val(caseDetails.someValue);
+    } else {
+      console.log("Case not found");
+    }
+  }
+
+
+
+</script>
+
+<!-- Plugin js for this page -->
+<script src="/vendors/datatables.net/jquery.dataTables.js"></script>
+<script src="/vendors/datatables.net-bs5/dataTables.bootstrap5.js"></script>
+<!-- End plugin js for this page -->
+<script src="/js/data-table.js"></script>
+</div>
+</div>

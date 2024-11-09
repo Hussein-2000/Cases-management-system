@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userModel = require('../models/user_model');
+const cases = require('../models/Cases');
 // const IsAuthenticated = require('../server');
 
 const router = express.Router();
@@ -32,9 +33,15 @@ router.get('/loginUser', (req, res) => {
 })
 
 
-router.get('/', (req, res) => {
-    console.log("Hi in the Home")
-    res.render('Home', {title: ' - Home page'});
+router.get('/', async (req, res) => {
+    const Cases = await cases.find();
+    const ACTIVESTATUS = ['OPENED', 'Investigation', 'Reviewed', 'Procecutor' ]
+    const ActiveCases = await cases.countDocuments({ Status :  {$in: ACTIVESTATUS }});
+    const InActiveCases = await cases.countDocuments({ Status :  'CLOSED'});
+
+    const NoCases = Cases.length 
+
+    res.render('Home', {title: ' - Home page', NoCases , ActiveCases, InActiveCases});
 })
 
 
