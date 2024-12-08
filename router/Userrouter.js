@@ -29,7 +29,12 @@ function RedirectIfAuthenticated(req, res, next) {
 
 router.get('/loginUser', RedirectIfAuthenticated , (req, res) => {
     console.log("LOGIG")
-    res.render('login' , {title: ' - Login Page'});
+    try {
+        res.render('login' , {title: ' - Login Page'});
+      } catch (error) {
+        console.error('Error rendering login view:', error);
+        res.status(500).send('An error occurred');
+    }
 })
 
 
