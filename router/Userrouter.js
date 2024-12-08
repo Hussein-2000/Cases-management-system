@@ -38,7 +38,7 @@ router.get('/loginUser', RedirectIfAuthenticated , (req, res) => {
 })
 
 
-router.get('/',  IsAuthenticated , async (req, res) => {
+router.get('/' , async (req, res) => {
     const Cases = await cases.find();
     const ACTIVESTATUS = ['OPENED', 'Investigation', 'Reviewed', 'Procecutor' ]
     const ActiveCases = await cases.countDocuments({ Status :  {$in: ACTIVESTATUS }});
