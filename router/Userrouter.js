@@ -27,13 +27,13 @@ function RedirectIfAuthenticated(req, res, next) {
     return next();
 }
 
-router.get('/loginUser', (req, res) => {
+router.get('/loginUser', RedirectIfAuthenticated , (req, res) => {
     console.log("LOGIG")
     res.render('login' , {title: ' - Login Page'});
 })
 
 
-router.get('/', async (req, res) => {
+router.get('/',  IsAuthenticated , async (req, res) => {
     const Cases = await cases.find();
     const ACTIVESTATUS = ['OPENED', 'Investigation', 'Reviewed', 'Procecutor' ]
     const ActiveCases = await cases.countDocuments({ Status :  {$in: ACTIVESTATUS }});

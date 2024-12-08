@@ -193,7 +193,7 @@ router.get('/JudgeRoleDashboard', async (req, res) => {
                },
 
           ]).then((investigatorRole) => {
-
+               console.log("ALL DATA: ", investigatorRole)
                res.render('JudgeRole', {
                     data: investigatorRole,
                     prosecutors,
